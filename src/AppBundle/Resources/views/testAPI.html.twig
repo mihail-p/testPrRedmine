@@ -7,7 +7,7 @@
                 <h1><span>Welcome to</span> Symfony {{ constant('Symfony\\Component\\HttpKernel\\Kernel::VERSION') }}</h1>
             </div>
             <div>
-                {{ api }}
+                {{ dump(dataAPI) }}
             </div>
             <a href="{{ path('homepage') }}">Main</a>
         </div>
