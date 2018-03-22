@@ -3,11 +3,23 @@
 {% block body %}
     <div id="wrapper">
         <div id="container">
-            <div id="welcome">
-                <h1><span>Welcome to</span> Symfony {{ constant('Symfony\\Component\\HttpKernel\\Kernel::VERSION') }}</h1>
+            <div id="dd">
+                <h1>Integration with <span>Redmine</span></h1>
             </div>
             <div>
+                <H3>List of Projects:</H3>
+                {% if listProject %}
+                    <ul>
+                        {% for key, item in listProject %}
+                            <li>{{ key }} <span>#: {{ item }}</span></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {#
+                count= {{ count }}<br>
+                {{ dump(listIA) }}
                 {{ dump(dataAPI) }}
+                #}
             </div>
             <a href="{{ path('homepage') }}">Main</a>
         </div>
