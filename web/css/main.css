@@ -5,7 +5,7 @@ h2 { font-size: 21px; margin-bottom: 1em; }
 p { margin: 0 0 1em 0; }
 a { color: #0000F0; }
 a:hover { text-decoration: none; }
-ul li span {font-size: small; color: #313131}
+td span {font-size: small; color: #313131}
 #wrapper { background: #FFF; margin: 1em auto; max-width: 800px; width: 95%; }
 #container { padding: 1em; }
 #welcome, #status { margin-bottom: 2em; }

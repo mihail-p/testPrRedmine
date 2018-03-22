@@ -9,13 +9,24 @@
             <div>
                 <H3>List of Projects:</H3>
                 {% if listProject %}
-                    <ul>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Issues</th>
+                            <th>Spent time</th>
+                        </tr>
+                        </thead>
+                        <tbody>
                         {% for key, item in listProject %}
-                            <a href="{{ path('listIssues', {'prId': item}) }}">
-                                <li>{{ key }} <span>#: {{ item }}</span></li>
-                            </a>
+                        <tr>
+                            <td>{{ key }}<span>#: {{ item }}</span></td>
+                            <td><a href="{{ path('listIssues', {'prId': item}) }}">view issues</a></td>
+                            <td><a href="{{ path('time_list', {'prId': item}) }}">time</a></td>
+                        </tr>
                         {% endfor %}
-                    </ul>
+                        </tbody>
+                    </table>
                 {% endif %}
                 {#
                 count= {{ count }}<br>
