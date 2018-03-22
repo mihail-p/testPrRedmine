@@ -11,7 +11,9 @@
                 {% if listProject %}
                     <ul>
                         {% for key, item in listProject %}
-                            <li>{{ key }} <span>#: {{ item }}</span></li>
+                            <a href="{{ path('listIssues', {'prId': item}) }}">
+                                <li>{{ key }} <span>#: {{ item }}</span></li>
+                            </a>
                         {% endfor %}
                     </ul>
                 {% endif %}

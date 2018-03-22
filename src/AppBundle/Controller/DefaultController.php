@@ -26,27 +26,41 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/testAPI", name="test_api")
+     * @Route("/listProjects", name="listProjects")
      */
-    public function viewAction(Request $request)
+    public function viewAction()
     {
-        $count=0;
+       // $count=0;
         $listProject = 'API Data';
         $client = new Client(self::URL, self::USER, self::PASS);// self::API_KEY);
 
         $listProject = $client->project->listing();
-        $listIssues = $client->issue->all();
+        /* $listIssues = $client->issue->all();
         foreach ($listIssues['issues'] as $keyI=>$valueI) {
             foreach ($listProject as $keyP=>$valueP){
                 if ($valueI['project']['id'] == $valueP) {
                     $listIssuesArr[$valueI['id']] = $valueP; $count++; }
             }
         }
-        $dataAPI= $listIssues['issues'];
+        $dataAPI= $listIssues['issues']; */
 
-        return $this->render('@App/testAPI.html.twig', [
-            'listProject' => $listProject, 'listIssues' => $listIssues, 'dataAPI'=> $dataAPI,
-            'listIA'=>$listIssuesArr, 'count'=>$count]);
+        return $this->render('@App/listProjects.html.twig', [
+            'listProject' => $listProject /*, 'listIssues' => $listIssues, 'dataAPI'=> $dataAPI,
+            'listIA'=>$listIssuesArr, 'count'=>$count */]);
 
+    }
+
+    /**
+     * @Route("/listIssues/{prId}", name="listIssues")
+     */
+    public function listIssuesAction($prId)
+    {
+        $client = new Client(self::URL, self::USER, self::PASS);// self::API_KEY);
+        $listIssues = $client->issue->all(['project_id'=> $prId]);
+        if (isset($listIssues['issues'])){
+            $listIssuesArr= $listIssues['issues'];
+        } else $listIssuesArr = 0;
+
+        return $this->render('@App/listIssues.html.twig',['listIssues'=>$listIssuesArr]);
     }
 }

@@ -1,0 +1,46 @@
+{% extends '@App/base.html.twig' %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <div id="dd">
+                <h1>Integration with <span>Redmine</span></h1>
+            </div>
+            <div>
+                {% if listIssues == 0 %} No Issues for this project <br>
+                {% else %}
+                    <H3>List of Issues, Project: {{ listIssues.0.project.name }}</H3>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Tracker</th>
+                            <th>Status</th>
+                            <th>Priority</th>
+                            <th>Subject</th>
+                            <th>Author</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                         {% for key, item in listIssues %}
+                        <tr>
+                            <td>{{ item.id }}</td>
+                            <td>{{ item.tracker.name }}</td>
+                             <td>{{ item.status.name }}</td>
+                             <td>{{ item.priority.name }}</td>
+                             <td>{{ item.subject }}</td>
+                             <td>{{ item.author.name }}</td>
+                        </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                {% endif %}
+            </div>
+            <a href="{{ path('listProjects') }}">Projects</a><br>
+            <a href="{{ path('homepage') }}">Main</a>
+        </div>
+    </div>
+{% endblock %}
+
