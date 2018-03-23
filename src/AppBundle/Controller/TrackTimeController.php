@@ -71,7 +71,7 @@ class TrackTimeController extends Controller
                 ],
             ]);
 
-            return $this->render('@App/showTrackTimeData.html.twig', ['timeDate' => $trackTime]);
+            return $this->redirectToRoute('time_list', ['prId' => $prId]);
         }
 
         return $this->render('@App/addTrackTime.html.twig', ['form' => $form->createView()]);
