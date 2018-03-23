@@ -1,0 +1,21 @@
+{% extends '@App/base.html.twig' %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <div id="dd">
+                <h1>Integration with <span>Redmine</span></h1>
+            </div>
+            <div>
+                    <H3>Spent time on project</H3>
+            </div>
+            <div>
+                {{ dump(timeDate) }}
+                <p>Log time added!</p>
+            </div>
+            <a href="{{ path('listProjects') }}">Projects</a><br>
+            <a href="{{ path('homepage') }}">Main</a>
+        </div>
+    </div>
+{% endblock %}
+

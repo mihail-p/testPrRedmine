@@ -10,6 +10,7 @@
                 {% if trackTime == 0 %} No time activity for this project <br>
                 {% else %}
                     <H3>Track Time, Project: {{ trackTime.0.project.name }}</H3>
+                    <a href="{{ path('createTimeEntry', {'prId': trackTime.0.project.id }) }}">add log time</a><br>
                     <table>
                         <thead>
                         <tr>
@@ -35,10 +36,10 @@
                         </tbody>
                     </table>
                 {% endif %}
+                {# {{ dump(trackTime) }} #}
             </div>
             <a href="{{ path('listProjects') }}">Projects</a><br>
             <a href="{{ path('homepage') }}">Main</a>
         </div>
     </div>
 {% endblock %}
-
