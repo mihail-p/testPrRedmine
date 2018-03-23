@@ -25,9 +25,7 @@ class TrackTimeController extends Controller
      */
     public function indexAction($prId)
     {
-        $client = new Client(self::URL, self::USER, self::PASS);
-
-        $list = $client->time_entry->all(['project_id' => $prId]);
+        $list = $this->connect()->time_entry->all(['project_id' => $prId]);
         if (isset($list['time_entries'])) {
             $trackTime = $list['time_entries'];
         } else $trackTime = 0;
@@ -58,8 +56,7 @@ class TrackTimeController extends Controller
 
         $form->handleRequest($request);
         if ($form->isValid()) {
-            $client = new Client(self::URL, self::USER, self::PASS);
-            $client->time_entry->create([
+            $this->connect()->time_entry->create([
                 'project_id' => $prId,
                 'spent_on' => $trackTime->getDate(),
                 'hours' => $trackTime->getHours(),
@@ -85,9 +82,13 @@ class TrackTimeController extends Controller
      */
     public function removeAction($prId, $teId)
     {
-        $client = new Client(self::URL, self::USER, self::PASS);
-        $client->time_entry->remove($teId);
+        $this->connect()->time_entry->remove($teId);
 
         return $this->redirectToRoute('time_list', ['prId' => $prId]);
+    }
+
+    private function connect()
+    {
+        return $client = new Client(self::URL, self::USER, self::PASS);
     }
 }
