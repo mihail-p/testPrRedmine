@@ -25,7 +25,7 @@ class TrackTimeController extends Controller
      */
     public function indexAction($prId)
     {
-        $client = new Client(self::URL, self::USER, self::PASS);// self::API_KEY);
+        $client = new Client(self::URL, self::USER, self::PASS);
 
         $list = $client->time_entry->all(['project_id' => $prId]);
         if (isset($list['time_entries'])) {
@@ -36,7 +36,7 @@ class TrackTimeController extends Controller
     }
 
     /**
-     * @Route("/new_time_entries/{prId}", name="createTimeEntry")
+     * @Route("/new_time_entries/{prId}", name="create_time_entry")
      */
     public function newAction(Request $request, $prId)
     {
@@ -58,7 +58,7 @@ class TrackTimeController extends Controller
 
         $form->handleRequest($request);
         if ($form->isValid()) {
-            $client = new Client(self::URL, self::USER, self::PASS);// self::API_KEY);
+            $client = new Client(self::URL, self::USER, self::PASS);
             $client->time_entry->create([
                 'project_id' => $prId,
                 'spent_on' => $trackTime->getDate(),
@@ -69,7 +69,7 @@ class TrackTimeController extends Controller
                     [
                         'id' => 5,
                         'name' => 'Overtime',
-                    'value' => $trackTime->getOvertimeInt(),
+                        'value' => $trackTime->getOvertimeInt(),
                     ],
                 ],
             ]);
@@ -78,5 +78,16 @@ class TrackTimeController extends Controller
         }
 
         return $this->render('@App/addTrackTime.html.twig', ['form' => $form->createView()]);
+    }
+
+    /**
+     * @Route("/rem_time_entries/{prId}/{teId}", name="rem_time_entry")
+     */
+    public function removeAction($prId, $teId)
+    {
+        $client = new Client(self::URL, self::USER, self::PASS);
+        $client->time_entry->remove($teId);
+
+        return $this->redirectToRoute('time_list', ['prId' => $prId]);
     }
 }

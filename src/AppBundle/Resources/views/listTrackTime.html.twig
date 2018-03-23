@@ -10,7 +10,7 @@
                 {% if trackTime == 0 %} No time activity for this project <br>
                 {% else %}
                     <H3>Track Time, Project: {{ trackTime.0.project.name }}</H3>
-                    <a href="{{ path('createTimeEntry', {'prId': trackTime.0.project.id }) }}">add log time</a><br>
+                    <a href="{{ path('create_time_entry', {'prId': trackTime.0.project.id }) }}">add log time</a><br>
                     <table>
                         <thead>
                         <tr>
@@ -20,6 +20,7 @@
                             <th>Issue id</th>
                             <th>Comment</th>
                             <th>Hours</th>
+                            <th>rem</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -31,12 +32,15 @@
                              {% if item.issue is defined %}<td> {{ item.issue.id }} </td>{% else %}<td></td>{% endif %}
                              {% if item.comments is defined %}<td> {{ item.comments }} </td>{% else %}<td></td>{% endif %}
                              <td>{{ item.hours }}</td>
+                             <td>{% if item.user.id == 310 %}
+                                 <a href="{{ path('rem_time_entry', {'prId': item.project.id, 'teId': item.id }) }}">rem</a>
+                                 {% endif %}
+                             </td>
                         </tr>
-                        {% endfor %}
+                         {% endfor %}
                         </tbody>
                     </table>
                 {% endif %}
-                {# {{ dump(trackTime) }} #}
             </div>
             <a href="{{ path('listProjects') }}">Projects</a><br>
             <a href="{{ path('homepage') }}">Main</a>
