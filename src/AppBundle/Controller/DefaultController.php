@@ -42,7 +42,7 @@ class DefaultController extends Controller
     {
         $listProject = $this->connect()->project->listing();
 
-        return $this->render('@App/listProjects.html.twig', ['listProject' => $listProject ]);
+        return $this->render('@App/listProjects.html.twig', ['listProject' => $listProject]);
 
     }
 
@@ -51,12 +51,12 @@ class DefaultController extends Controller
      */
     public function listIssuesAction($prId)
     {
-        $listIssues = $this->connect()->issue->all(['project_id'=> $prId]);
-        if (isset($listIssues['issues'])){
-            $listIssuesArr= $listIssues['issues'];
+        $listIssues = $this->connect()->issue->all(['project_id' => $prId]);
+        if (isset($listIssues['issues'])) {
+            $listIssuesArr = $listIssues['issues'];
         } else $listIssuesArr = 0;
 
-        return $this->render('@App/listIssues.html.twig',['listIssues'=>$listIssuesArr]);
+        return $this->render('@App/listIssues.html.twig', ['listIssues' => $listIssuesArr]);
     }
 
     private function connect()
