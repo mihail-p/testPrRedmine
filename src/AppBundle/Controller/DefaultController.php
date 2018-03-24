@@ -41,8 +41,9 @@ class DefaultController extends Controller
     public function viewAction()
     {
         $listProject = $this->connect()->project->listing();
-
-        return $this->render('@App/listProjects.html.twig', ['listProject' => $listProject]);
+        return $this->render('@App/listProjects.html.twig', [
+            'listProject' => $listProject /*, 'listIssues' => $listIssues, 'dataAPI'=> $dataAPI,
+            'listIA'=>$listIssuesArr, 'count'=>$count */]);
     }
 
     /**
@@ -50,14 +51,16 @@ class DefaultController extends Controller
      */
     public function listIssuesAction($prId)
     {
-        $listIssues = $this->connect()->issue->all(['project_id' => $prId]);
-        if (isset($listIssues['issues'])) {
-            $listIssuesArr = $listIssues['issues'];
+        $listIssues = $this->connect()->issue->all(['project_id'=> $prId]);
+        if (isset($listIssues['issues'])){
+            $listIssuesArr= $listIssues['issues'];
         } else $listIssuesArr = 0;
-
-        return $this->render('@App/listIssues.html.twig', ['listIssues' => $listIssuesArr]);
+        return $this->render('@App/listIssues.html.twig',['listIssues'=>$listIssuesArr]);
     }
 
+    /**
+     * @return Client
+     */
     private function connect()
     {
         $user = $this->container->getParameter('app_redmine_user');
