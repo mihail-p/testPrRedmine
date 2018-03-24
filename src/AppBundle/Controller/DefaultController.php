@@ -43,7 +43,6 @@ class DefaultController extends Controller
         $listProject = $this->connect()->project->listing();
 
         return $this->render('@App/listProjects.html.twig', ['listProject' => $listProject]);
-
     }
 
     /**
