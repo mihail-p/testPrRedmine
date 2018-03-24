@@ -84,6 +84,9 @@ class TrackTimeController extends Controller
         return $this->redirectToRoute('time_list', ['prId' => $prId]);
     }
 
+    /**
+     * @return Client
+     */
     private function connect()
     {
         $user = $this->container->getParameter('app_redmine_user');
