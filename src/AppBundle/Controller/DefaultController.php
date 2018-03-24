@@ -26,6 +26,17 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/admin", name="adm_test")
+     */
+    public function admAction()
+    {
+        $data = 'You have the FULL access to this page now! ';
+
+        return $this->render('@App/index.html.twig', array(
+            'data' => $data));
+    }
+
+    /**
      * @Route("/listProjects", name="listProjects")
      */
     public function viewAction()
