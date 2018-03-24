@@ -11,9 +11,6 @@ use Redmine\Client;
 class DefaultController extends Controller
 {
     const URL = 'https://redmine.ekreative.com';
-    const API_KEY= '2fda745bb4cdd835fdf41ec1fab82a13ddc1a54c';
-    const USER='phptest';
-    const PASS='9uu82T487m6V41G';
 
     /**
      * @Route("/", name="homepage")
@@ -43,23 +40,9 @@ class DefaultController extends Controller
      */
     public function viewAction()
     {
-       // $count=0;
-        $listProject = 'API Data';
-        $client = new Client(self::URL, self::USER, self::PASS);// self::API_KEY);
+        $listProject = $this->connect()->project->listing();
 
-        $listProject = $client->project->listing();
-        /* $listIssues = $client->issue->all();
-        foreach ($listIssues['issues'] as $keyI=>$valueI) {
-            foreach ($listProject as $keyP=>$valueP){
-                if ($valueI['project']['id'] == $valueP) {
-                    $listIssuesArr[$valueI['id']] = $valueP; $count++; }
-            }
-        }
-        $dataAPI= $listIssues['issues']; */
-
-        return $this->render('@App/listProjects.html.twig', [
-            'listProject' => $listProject /*, 'listIssues' => $listIssues, 'dataAPI'=> $dataAPI,
-            'listIA'=>$listIssuesArr, 'count'=>$count */]);
+        return $this->render('@App/listProjects.html.twig', ['listProject' => $listProject ]);
 
     }
 
@@ -68,12 +51,18 @@ class DefaultController extends Controller
      */
     public function listIssuesAction($prId)
     {
-        $client = new Client(self::URL, self::USER, self::PASS);// self::API_KEY);
-        $listIssues = $client->issue->all(['project_id'=> $prId]);
+        $listIssues = $this->connect()->issue->all(['project_id'=> $prId]);
         if (isset($listIssues['issues'])){
             $listIssuesArr= $listIssues['issues'];
         } else $listIssuesArr = 0;
 
         return $this->render('@App/listIssues.html.twig',['listIssues'=>$listIssuesArr]);
+    }
+
+    private function connect()
+    {
+        $user = $this->container->getParameter('app_redmine_user');
+        $pass = $this->container->getParameter('app_redmine_pass');
+        return $client = new Client(self::URL, $user, $pass);
     }
 }

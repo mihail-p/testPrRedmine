@@ -16,9 +16,6 @@ use Redmine\Client;
 class TrackTimeController extends Controller
 {
     const URL = 'https://redmine.ekreative.com';
-    const API_KEY = '2fda745bb4cdd835fdf41ec1fab82a13ddc1a54c';
-    const USER = 'phptest';
-    const PASS = '9uu82T487m6V41G';
 
     /**
      * @Route("/time_list/{prId}", name="time_list")
@@ -89,6 +86,8 @@ class TrackTimeController extends Controller
 
     private function connect()
     {
-        return $client = new Client(self::URL, self::USER, self::PASS);
+        $user = $this->container->getParameter('app_redmine_user');
+        $pass = $this->container->getParameter('app_redmine_pass');
+        return $client = new Client(self::URL, $user, $pass);
     }
 }

@@ -4,6 +4,10 @@ parameters:
     #parameter_name: value
 
 services:
+    app.redmine:
+        class:   AppBundle\Controller\DefaultController
+        arguments:   ['%app_redmine_user%']
+        arguments:   ['%app_redmine_pass%']
     #service_name:
     #    class: AppBundle\Directory\ClassName
     #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
