@@ -41,9 +41,7 @@ class DefaultController extends Controller
     public function viewAction()
     {
         $listProject = $this->connect()->project->listing();
-        return $this->render('@App/listProjects.html.twig', [
-            'listProject' => $listProject /*, 'listIssues' => $listIssues, 'dataAPI'=> $dataAPI,
-            'listIA'=>$listIssuesArr, 'count'=>$count */]);
+        return $this->render('@App/listProjects.html.twig', ['listProject' => $listProject]);
     }
 
     /**
