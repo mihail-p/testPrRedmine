@@ -29,8 +29,11 @@ security:
             security: false
 
         main:
-            anonymous: ~
             http_basic: ~
+
+            logout:
+               path: /logout
+               target: /
 
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
