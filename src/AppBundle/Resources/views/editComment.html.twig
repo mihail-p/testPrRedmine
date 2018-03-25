@@ -1,0 +1,39 @@
+{% extends '@App/base.html.twig' %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <div id="dd">
+                <h1>Integration with <span>Redmine</span></h1>
+            </div>
+            <div>
+                <H3>--- Edit Comment ---</H3>
+                {% if form %}
+                    <div>
+                        <header>
+                            <span>{{ form_start(form) }}
+                                {{ form_errors(form) }}
+                                {{ form_errors(form.user_name) }}
+                                {{ form_widget(form.user_name) }}
+                        </span>
+                            <span>
+                                {{ form_errors(form.date) }}
+                                {{ form_widget(form.date) }}
+                        </span>
+                        </header>
+                    </div>
+                    <div>
+                        {{ form_errors(form.comment) }}
+                        {{ form_widget(form.comment) }}
+                        {{ form_errors(form.project) }}
+                        {{ form_widget(form.project) }}
+                        {{ form_row(form.save) }}
+                        {{ form_end(form) }}
+                    </div>
+                {% endif %}
+            </div>
+            <a href="{{ path('listProjects') }}">Projects</a><br>
+            <a href="{{ path('homepage') }}">Main</a>
+        </div>
+    </div>
+{% endblock %}

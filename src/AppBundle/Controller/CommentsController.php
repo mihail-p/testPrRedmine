@@ -84,13 +84,45 @@ class CommentsController extends Controller
             $em->persist($comment);
             $em->flush();
 
-
             return $this->redirectToRoute('comm_list', ['prId' => $comment->getProject()->getIdPr(),
                 'prName' => $comment->getProject()->getProjectName()]);
         }
 
         return $this->render('AppBundle::newComment.html.twig', [
             'form' => $form->createView(), 'user' => $user]);
+    }
+
+    /**
+     * @Route("/edit/{id}", name="edit_comment")
+     */
+    public function editAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('AppBundle:Comment')->find($id);
+
+        $form = $this->createFormBuilder($entity)
+            ->add('user_name', TextType::class, ['disabled' => true])
+            ->add('date', DateType::class, ['widget' => 'single_text', 'disabled' => true])
+            ->add('comment', TextareaType::class, ['attr' => ['cols' => '70', 'rows' => '5']])
+            ->add('project', EntityType::class, [
+                'class' => 'AppBundle\Entity\Project',
+                'property' => 'project_name',
+                'disabled' => true,
+                'attr' => [
+                    'class' => 'chosen form-control', 'data-placeholder' => '-- choice Project --']
+            ])
+            ->add('save', SubmitType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $em->flush();
+
+            return $this->redirectToRoute('comm_list', ['prId' => $entity->getProject()->getIdPr(),
+                'prName' => $entity->getProject()->getProjectName()]);
+        }
+
+        return $this->render('AppBundle::editComment.html.twig', ['form' => $form->createView()]);
     }
 
     /**
@@ -105,14 +137,6 @@ class CommentsController extends Controller
         $em->remove($entity);
         $em->flush();
 
-        return $this->redirectToRoute('comm_list',['prId' => $idPr, 'prName' => $prName]);
-    }
-
-    private function connect()
-    {
-        $user = $this->container->getParameter('app_redmine_user');
-        $pass = $this->container->getParameter('app_redmine_pass');
-
-        return $client = new Client(self::URL, $user, $pass);
+        return $this->redirectToRoute('comm_list', ['prId' => $idPr, 'prName' => $prName]);
     }
 }

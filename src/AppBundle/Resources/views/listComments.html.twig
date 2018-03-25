@@ -9,7 +9,7 @@
             <div>
                 <H3>--- List of Comments ---</H3>
                 <a href="{{ path('new_comment') }}">add a comment</a><br>
-                Project: {{ project.projectName }}<br>-----------------<br>
+                Project: <b>{{ project.projectName }}</b><br>-----------------<br>
 
                 {% if comments %}
                     {% for key, item in comments %}
@@ -21,6 +21,7 @@
                 </div>
                     <div>
                         comment: {{ item.comment }}
+                        <a href="{{ path('edit_comment', {'id' : item.getId}) }}">edit</a>
                         <a href="{{ path('remove_comment', {'id' : item.getId}) }}">del</a>
                     </div>
                         -------------------------- <br>
