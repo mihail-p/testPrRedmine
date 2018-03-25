@@ -45,7 +45,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/listIssues/{prId}", name="listIssues")
+     * @Route("/listIssues/{prId}", name="listIssues", requirements={"prId": "\d+")
      */
     public function listIssuesAction($prId)
     {
