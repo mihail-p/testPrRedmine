@@ -15,7 +15,6 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Comment;
 use AppBundle\Entity\Project;
 use Redmine\Client;
-
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -30,7 +29,7 @@ class CommentsController extends Controller
     const URL = 'https://redmine.ekreative.com';
 
     /**
-     * @Route("/{prId}/{prName}", name="comm_list")
+     * @Route("/{prId}/{prName}", name="comm_list", requirements={"prId": "\d+"})
      */
     public function listAction($prId, $prName)
     {
@@ -92,6 +91,21 @@ class CommentsController extends Controller
 
         return $this->render('AppBundle::newComment.html.twig', [
             'form' => $form->createView(), 'user' => $user]);
+    }
+
+    /**
+     * @Route("/rem/{id}", name="remove_comment")
+     */
+    public function remAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('AppBundle:Comment')->find($id);
+        $idPr = $entity->getProject()->getIdPr();
+        $prName = $entity->getProject()->getProjectName();
+        $em->remove($entity);
+        $em->flush();
+
+        return $this->redirectToRoute('comm_list',['prId' => $idPr, 'prName' => $prName]);
     }
 
     private function connect()

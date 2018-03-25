@@ -21,6 +21,7 @@
                 </div>
                     <div>
                         comment: {{ item.comment }}
+                        <a href="{{ path('remove_comment', {'id' : item.getId}) }}">del</a>
                     </div>
                         -------------------------- <br>
                 {# {{ dump(item) }} #}
