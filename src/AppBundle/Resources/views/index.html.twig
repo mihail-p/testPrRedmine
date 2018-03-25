@@ -4,12 +4,12 @@
     <div id="wrapper">
         <div id="container">
             <div id="welcome">
-                <h1><span>Welcome to</span> Symfony {{ constant('Symfony\\Component\\HttpKernel\\Kernel::VERSION') }}</h1>
+                <h1><span>Welcome to</span> Integration with Redmine</h1>
             </div>
             <div>
                 <a href="{{ path('listProjects') }}">list of Redmine project</a>
             </div>
         </div>
-        <p>Some data: {{ data }}</p>
+        <p>{{ data }}</p>
     </div>
 {% endblock %}

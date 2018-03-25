@@ -9,6 +9,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Comment
@@ -26,11 +27,13 @@ class Comment
     protected $id;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="string")
      */
     protected $user_name;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="text")
      */
     protected $comment;

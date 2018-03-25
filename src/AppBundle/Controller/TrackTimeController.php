@@ -18,7 +18,7 @@ class TrackTimeController extends Controller
     const URL = 'https://redmine.ekreative.com';
 
     /**
-     * @Route("/time_list/{prId}", name="time_list", requirements={"prId": "\d+")
+     * @Route("/time_list/{prId}", name="time_list", requirements={"prId": "\d+"})
      */
     public function indexAction($prId)
     {
@@ -31,7 +31,7 @@ class TrackTimeController extends Controller
     }
 
     /**
-     * @Route("/new_time_entries/{prId}", name="create_time_entry", requirements={"prId": "\d+")
+     * @Route("/new_time_entries/{prId}", name="create_time_entry", requirements={"prId": "\d+"})
      */
     public function newAction(Request $request, $prId)
     {
@@ -75,7 +75,7 @@ class TrackTimeController extends Controller
     }
 
     /**
-     * @Route("/rem_time_entries/{prId}/{teId}", name="rem_time_entry", requirements={"prId": "\d+")
+     * @Route("/rem_time_entries/{prId}/{teId}", name="rem_time_entry", requirements={"prId": "\d+"})
      */
     public function removeAction($prId, $teId)
     {

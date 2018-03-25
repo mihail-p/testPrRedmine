@@ -17,7 +17,7 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $data = 'some data';
+        $data = 'Main page';
 
         return $this->render('@App/index.html.twig', array(
             'data' => $data));
@@ -45,7 +45,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/listIssues/{prId}", name="listIssues", requirements={"prId": "\d+")
+     * @Route("/listIssues/{prId}", name="listIssues", requirements={"prId": "\d+"})
      */
     public function listIssuesAction($prId)
     {

@@ -93,7 +93,7 @@ class CommentsController extends Controller
     }
 
     /**
-     * @Route("/edit/{id}", name="edit_comment", requirements={"id": "\d+")
+     * @Route("/edit/{id}", name="edit_comment", requirements={"id": "\d+"})
      */
     public function editAction(Request $request, $id)
     {
@@ -126,7 +126,7 @@ class CommentsController extends Controller
     }
 
     /**
-     * @Route("/rem/{id}", name="remove_comment", requirements={"id": "\d+")
+     * @Route("/rem/{id}", name="remove_comment", requirements={"id": "\d+"})
      */
     public function remAction($id)
     {

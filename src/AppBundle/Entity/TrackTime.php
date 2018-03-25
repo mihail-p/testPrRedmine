@@ -8,13 +8,30 @@
 
 namespace AppBundle\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 
 class TrackTime
 {
+    /**
+     * @Assert\Date()
+     */
     protected $date;
+
+    /**
+     * @Assert\Type(type="integer")
+     */
     protected $hours;
+
+    /**
+     * @Assert\NotBlank()
+     */
     protected $comment;
+
+    /**
+     * @Assert\NotBlank()
+     */
     protected $activity;
+
     protected $overtime;
     protected $overtime_int;
 
