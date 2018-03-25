@@ -1,0 +1,34 @@
+{% extends '@App/base.html.twig' %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <div id="dd">
+                <h1>Integration with <span>Redmine</span></h1>
+            </div>
+            <div>
+                <H3>--- List of Comments ---</H3>
+                <a href="{{ path('new_comment') }}">add a comment</a><br>
+                Project: {{ project.projectName }}<br>-----------------<br>
+
+                {% if comments %}
+                    {% for key, item in comments %}
+                <div>
+                    <header>
+                        <span>{{ item.getUserName }}</span>
+                        <span>{{ item.getDate|date("m/d/Y") }}</span>
+                    </header>
+                </div>
+                    <div>
+                        comment: {{ item.comment }}
+                    </div>
+                        -------------------------- <br>
+                {# {{ dump(item) }} #}
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <a href="{{ path('listProjects') }}">Projects</a><br>
+            <a href="{{ path('homepage') }}">Main</a>
+        </div>
+    </div>
+{% endblock %}

@@ -11,12 +11,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Comments
+ * Class Comment
  * @package AppBundle\Entity
  * @ORM\Entity
- * @ORM\Table(name="comments")
+ * @ORM\Table(name="comment")
  */
-class Comments
+class Comment
 {
     /**
      * @ORM\Column(type="integer")
@@ -40,6 +40,11 @@ class Comments
      */
     protected $date;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Project", inversedBy="comments")
+     * @ORM\JoinColumn(name="project_id", referencedColumnName="id")
+     */
+    protected $project;
 
     /**
      * Get id
@@ -56,7 +61,7 @@ class Comments
      *
      * @param string $userName
      *
-     * @return Comments
+     * @return Comment
      */
     public function setUserName($userName)
     {
@@ -80,7 +85,7 @@ class Comments
      *
      * @param string $comment
      *
-     * @return Comments
+     * @return Comment
      */
     public function setComment($comment)
     {
@@ -104,7 +109,7 @@ class Comments
      *
      * @param \DateTime $date
      *
-     * @return Comments
+     * @return Comment
      */
     public function setDate($date)
     {
@@ -121,5 +126,29 @@ class Comments
     public function getDate()
     {
         return $this->date;
+    }
+
+    /**
+     * Set project
+     *
+     * @param \AppBundle\Entity\Project $project
+     *
+     * @return Comment
+     */
+    public function setProject(\AppBundle\Entity\Project $project = null)
+    {
+        $this->project = $project;
+
+        return $this;
+    }
+
+    /**
+     * Get project
+     *
+     * @return \AppBundle\Entity\Project
+     */
+    public function getProject()
+    {
+        return $this->project;
     }
 }

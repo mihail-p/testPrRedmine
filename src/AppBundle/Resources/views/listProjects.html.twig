@@ -15,6 +15,7 @@
                             <th>Name</th>
                             <th>Issues</th>
                             <th>Spent time</th>
+                            <th>Comments</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -23,12 +24,14 @@
                             <td>{{ key }}<span>#: {{ item }}</span></td>
                             <td><a href="{{ path('listIssues', {'prId': item}) }}">view issues</a></td>
                             <td><a href="{{ path('time_list', {'prId': item}) }}">time</a></td>
+                            <td><a href="{{ path('comm_list', {'prId': item, 'prName': key}) }}">comm</a></td>
                         </tr>
                         {% endfor %}
                         </tbody>
                     </table>
                 {% endif %}
             </div>
+            <a href="{{ path('new_comment') }}">add a comment</a><br>
             <a href="{{ path('homepage') }}">Main</a>
         </div>
     </div>

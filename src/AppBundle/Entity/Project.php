@@ -8,15 +8,16 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class LocalUsers
+ * Class Project
  * @package AppBundle\Entity
- * @ORM\Entity
- * @ORM\Table(name="local_users")
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\ProjectRepository");
+ * @ORM\Table(name="project")
  */
-class LocalUsers
+class Project
 {
     /**
      * @ORM\Column(type="integer")
@@ -35,6 +36,15 @@ class LocalUsers
      */
     protected $project_name;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="project")
+     */
+    protected $comments;
+
+    public function __construct()
+    {
+        return $this->comments = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -51,7 +61,7 @@ class LocalUsers
      *
      * @param integer $idPr
      *
-     * @return LocalUsers
+     * @return Project
      */
     public function setIdPr($idPr)
     {
@@ -75,7 +85,7 @@ class LocalUsers
      *
      * @param string $projectName
      *
-     * @return LocalUsers
+     * @return Project
      */
     public function setProjectName($projectName)
     {
@@ -92,5 +102,39 @@ class LocalUsers
     public function getProjectName()
     {
         return $this->project_name;
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \AppBundle\Entity\Comment $comment
+     *
+     * @return Project
+     */
+    public function addComment(\AppBundle\Entity\Comment $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \AppBundle\Entity\Comment $comment
+     */
+    public function removeComment(\AppBundle\Entity\Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }
