@@ -68,7 +68,7 @@ class CommentsController extends Controller
         $form = $this->createFormBuilder($comment)
             ->add('user_name', TextType::class, ['disabled' => true])
             ->add('date', DateType::class, ['widget' => 'single_text', 'disabled' => true])
-            ->add('comment', TextareaType::class, ['attr' => ['cols' => '70', 'rows' => '5']])
+            ->add('comment', TextareaType::class, ['attr' => ['cols' => '78', 'rows' => '5']])
             ->add('project', EntityType::class, [
                 'class' => 'AppBundle\Entity\Project',
                 'property' => 'project_name',
@@ -103,7 +103,7 @@ class CommentsController extends Controller
         $form = $this->createFormBuilder($entity)
             ->add('user_name', TextType::class, ['disabled' => true])
             ->add('date', DateType::class, ['widget' => 'single_text', 'disabled' => true])
-            ->add('comment', TextareaType::class, ['attr' => ['cols' => '70', 'rows' => '5']])
+            ->add('comment', TextareaType::class, ['attr' => ['cols' => '78', 'rows' => '5']])
             ->add('project', EntityType::class, [
                 'class' => 'AppBundle\Entity\Project',
                 'property' => 'project_name',

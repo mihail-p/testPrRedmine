@@ -1,36 +1,33 @@
 {% extends '@App/base.html.twig' %}
 
 {% block body %}
-    <div id="wrapper">
-        <div id="container">
-            <div id="dd">
-                <h1>Integration with <span>Redmine</span></h1>
-            </div>
-            <div>
-                <H3>--- List of Comments ---</H3>
-                <a href="{{ path('new_comment') }}">add a comment</a><br>
-                Project: <b>{{ project.projectName }}</b><br>-----------------<br>
-
-                {% if comments %}
-                    {% for key, item in comments %}
-                <div>
-                    <header>
-                        <span>{{ item.getUserName }}</span>
-                        <span>{{ item.getDate|date("m/d/Y") }}</span>
-                    </header>
-                </div>
-                    <div>
-                        comment: {{ item.comment }}
-                        <a href="{{ path('edit_comment', {'id' : item.getId}) }}">edit</a>
-                        <a href="{{ path('remove_comment', {'id' : item.getId}) }}">del</a>
+    <div>
+        <H3>--- List of Comments ---</H3>
+        Project: <b>{{ project.projectName }}</b>
+        <p><a href="{{ path('new_comment') }}">add a comment</a></p>
+        {% if comments %}
+            {% for key, item in comments %}
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-8 form-control">
+                        <div class="">
+                            <span>{{ item.getUserName }}</span>
+                            <span>{{ item.getDate|date("m/d/Y") }}</span>
+                            <br><b>comment:</b>
+                        </div>
+                        <div class="form-control">
+                            {{ item.comment }}
+                        </div>
+                        <a class="btn btn-sm btn-outline-success"
+                           href="{{ path('edit_comment', {'id' : item.getId}) }}">edit</a>
+                        <a class="btn btn-sm btn-outline-dark" href="{{ path('remove_comment', {'id' : item.getId}) }}">del</a>
                     </div>
-                        -------------------------- <br>
+                    <div class="col-md-3"></div>
+                </div>
                 {# {{ dump(item) }} #}
-                    {% endfor %}
-                {% endif %}
-            </div>
-            <a href="{{ path('listProjects') }}">Projects</a><br>
-            <a href="{{ path('homepage') }}">Main</a>
-        </div>
+            {% endfor %}
+        {% endif %}
     </div>
+    <a href="{{ path('listProjects') }}">Projects</a><br>
+    <a href="{{ path('homepage') }}">Main</a>
 {% endblock %}

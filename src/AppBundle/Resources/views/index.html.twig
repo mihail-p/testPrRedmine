@@ -1,15 +1,11 @@
 {% extends '@App/base.html.twig' %}
 
 {% block body %}
-    <div id="wrapper">
-        <div id="container">
-            <div id="welcome">
-                <h1><span>Welcome to</span> Integration with Redmine</h1>
-            </div>
-            <div>
-                <a href="{{ path('listProjects') }}">list of Redmine project</a>
-            </div>
-        </div>
-        <p>{{ data }}</p>
+    <h2><span class="small">Welcome to</span> our site :)</h2>
+    <div class="col-md-1"></div>
+    <div class="col-md-8">
+        <a href="{{ path('listProjects') }}">list of Redmine project</a>
     </div>
+    <div class="col-md-3"></div>
+    <p>{{ data }}</p>
 {% endblock %}

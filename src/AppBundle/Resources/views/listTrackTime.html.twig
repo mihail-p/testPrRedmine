@@ -1,19 +1,18 @@
 {% extends '@App/base.html.twig' %}
 
 {% block body %}
-    <div id="wrapper">
-        <div id="container">
-            <div id="dd">
-                <h1>Integration with <span>Redmine</span></h1>
-            </div>
-            <div>
-                {% if trackTime == 0 %} No time activity for this project <br>
-                {% else %}
-                    <H3>Track Time, Project: {{ trackTime.0.project.name }}</H3>
-                    <a href="{{ path('create_time_entry', {'prId': trackTime.0.project.id }) }}">add log time</a><br>
-                    <table>
+    <div>
+        {% if trackTime == 0 %} No time activity for this project <br>
+        {% else %}
+            <H3>--- Track Time ---</H3>
+            Project: <b>{{ trackTime.0.project.name }}</b>
+            <p><a href="{{ path('create_time_entry', {'prId': trackTime.0.project.id }) }}">add log time</a></p>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-9">
+                    <table class="table table-bordered table-hover">
                         <thead>
-                        <tr>
+                        <tr class="table-info">
                             <th>Date</th>
                             <th>User</th>
                             <th>Activity</th>
@@ -24,26 +23,31 @@
                         </tr>
                         </thead>
                         <tbody>
-                         {% for key, item in trackTime %}
-                        <tr>
-                            <td>{{ item.spent_on }}</td>
-                            <td>{{ item.user.name }}</td>
-                             <td>{{ item.activity.name }}</td>
-                             {% if item.issue is defined %}<td> {{ item.issue.id }} </td>{% else %}<td></td>{% endif %}
-                             {% if item.comments is defined %}<td> {{ item.comments }} </td>{% else %}<td></td>{% endif %}
-                             <td>{{ item.hours }}</td>
-                             <td>{% if item.user.id == 310 %}
-                                 <a href="{{ path('rem_time_entry', {'prId': item.project.id, 'teId': item.id }) }}">rem</a>
-                                 {% endif %}
-                             </td>
-                        </tr>
-                         {% endfor %}
+                        {% for key, item in trackTime %}
+                            <tr>
+                                <td>{{ item.spent_on }}</td>
+                                <td>{{ item.user.name }}</td>
+                                <td>{{ item.activity.name }}</td>
+                                {% if item.issue is defined %}
+                                    <td> {{ item.issue.id }} </td>{% else %}
+                                    <td></td>{% endif %}
+                                {% if item.comments is defined %}
+                                    <td> {{ item.comments }} </td>{% else %}
+                                    <td></td>{% endif %}
+                                <td>{{ item.hours }}</td>
+                                <td>{% if item.user.id == 310 %}
+                                        <a href="{{ path('rem_time_entry', {'prId': item.project.id, 'teId': item.id }) }}">del</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
-                {% endif %}
+                </div>
+                <div class="col-md-2"></div>
             </div>
-            <a href="{{ path('listProjects') }}">Projects</a><br>
-            <a href="{{ path('homepage') }}">Main</a>
-        </div>
+        {% endif %}
     </div>
+    <a href="{{ path('listProjects') }}">Projects</a><br>
+    <a href="{{ path('homepage') }}">Main</a>
 {% endblock %}

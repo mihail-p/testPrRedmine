@@ -1,17 +1,15 @@
 {% extends '@App/base.html.twig' %}
 
 {% block body %}
-    <div id="wrapper">
-        <div id="container">
-            <div id="dd">
-                <h1>Integration with <span>Redmine</span></h1>
-            </div>
-            <div>
-                <H3>List of Projects:</H3>
-                {% if listProject %}
-                    <table>
+    <div>
+        <H3>--- List of Projects ---</H3>
+        {% if listProject %}
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-8">
+                    <table class="table table-bordered table-hover">
                         <thead>
-                        <tr>
+                        <tr class="table-info">
                             <th>Name</th>
                             <th>Issues</th>
                             <th>Spent time</th>
@@ -20,19 +18,20 @@
                         </thead>
                         <tbody>
                         {% for key, item in listProject %}
-                        <tr>
-                            <td>{{ key }}<span>#: {{ item }}</span></td>
-                            <td><a href="{{ path('listIssues', {'prId': item}) }}">view issues</a></td>
-                            <td><a href="{{ path('time_list', {'prId': item}) }}">time</a></td>
-                            <td><a href="{{ path('comm_list', {'prId': item, 'prName': key}) }}">comm</a></td>
-                        </tr>
+                            <tr>
+                                <td>{{ key }}</td>
+                                <td><a href="{{ path('listIssues', {'prId': item}) }}">view issues</a></td>
+                                <td><a href="{{ path('time_list', {'prId': item}) }}">time</a></td>
+                                <td><a href="{{ path('comm_list', {'prId': item, 'prName': key}) }}">comm</a></td>
+                            </tr>
                         {% endfor %}
                         </tbody>
                     </table>
-                {% endif %}
+                </div>
+                <div class="col-md-3"></div>
             </div>
-            <a href="{{ path('new_comment') }}">add a comment</a><br>
-            <a href="{{ path('homepage') }}">Main</a>
-        </div>
+        {% endif %}
     </div>
+    <a href="{{ path('new_comment') }}">add a comment</a><br>
+    <a href="{{ path('homepage') }}">Main</a>
 {% endblock %}
