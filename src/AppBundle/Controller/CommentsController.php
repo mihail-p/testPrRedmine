@@ -47,18 +47,7 @@ class CommentsController extends Controller
         } else {
             $em = $this->getDoctrine()->getManager();
             $comments = $em->getRepository('AppBundle:Project')->findAllComments($prId);
-
-            $deleteForms = [];
-            foreach ($comments as $entity) {
-                $deleteForms[$entity->getId()] = $this->createFormBuilder($entity)
-                    ->setAction($this->generateUrl('remove_comment', array('id' => $entity->getId())))
-                    ->setMethod('DELETE')
-                    ->add('submit', SubmitType::class, [
-                        'label' => 'del ',
-                        'attr' => ['class' => 'btn btn-sm btn-outline-dark']
-                    ])
-                    ->getForm()->createView();
-            }
+            $deleteForms = $this->remEntity($comments);
         }
 
         return $this->render('AppBundle::listComments.html.twig', [
@@ -151,5 +140,21 @@ class CommentsController extends Controller
         $em->flush();
 
         return $this->redirectToRoute('comm_list', ['prId' => $idPr, 'prName' => $prName]);
+    }
+
+    private function remEntity($entity_list)
+    {
+        $deleteForms = [];
+        foreach ($entity_list as $entity) {
+            $deleteForms[$entity->getId()] = $this->createFormBuilder($entity)
+                ->setAction($this->generateUrl('remove_comment', array('id' => $entity->getId())))
+                ->setMethod('DELETE')
+                ->add('submit', SubmitType::class, [
+                    'label' => 'del ',
+                    'attr' => ['class' => 'btn btn-sm btn-outline-dark']
+                ])
+                ->getForm()->createView();
+        }
+        return $deleteForms;
     }
 }
