@@ -19,7 +19,7 @@
                             <th>Issue id</th>
                             <th>Comment</th>
                             <th>Hours</th>
-                            <th>rem</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -36,7 +36,10 @@
                                     <td></td>{% endif %}
                                 <td>{{ item.hours }}</td>
                                 <td>{% if item.user.id == 310 %}
-                                        <a href="{{ path('rem_time_entry', {'prId': item.project.id, 'teId': item.id }) }}">del</a>
+                                        <a id="del_form">{{ form_start(remTrackTimeList[item.id],
+                                                {attr : {onsubmit: 'return confirm("Are you sure?");' }}) }}
+                                            {{ form_widget(remTrackTimeList[item.id].submit) }}
+                                            {{ form_end(remTrackTimeList[item.id]) }}</a>
                                     {% endif %}
                                 </td>
                             </tr>

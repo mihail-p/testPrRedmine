@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Comment;
 use AppBundle\Entity\Project;
-use Redmine\Client;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -46,12 +46,23 @@ class CommentsController extends Controller
             $project = $new_project;
         } else {
             $em = $this->getDoctrine()->getManager();
-            $comments = $em->getRepository('AppBundle:Project')
-                ->findAllComments($prId);
+            $comments = $em->getRepository('AppBundle:Project')->findAllComments($prId);
+
+            $deleteForms = [];
+            foreach ($comments as $entity) {
+                $deleteForms[$entity->getId()] = $this->createFormBuilder($entity)
+                    ->setAction($this->generateUrl('remove_comment', array('id' => $entity->getId())))
+                    ->setMethod('DELETE')
+                    ->add('submit', SubmitType::class, [
+                        'label' => 'del ',
+                        'attr' => ['class' => 'btn btn-sm btn-outline-dark']
+                    ])
+                    ->getForm()->createView();
+            }
         }
 
         return $this->render('AppBundle::listComments.html.twig', [
-            'project' => $project, 'comments' => $comments]);
+            'project' => $project, 'comments' => $comments, 'deleteForms' => $deleteForms]);
     }
 
     /**
@@ -127,6 +138,8 @@ class CommentsController extends Controller
 
     /**
      * @Route("/rem/{id}", name="remove_comment", requirements={"id": "\d+"})
+     * @Method("DELETE")
+
      */
     public function remAction($id)
     {

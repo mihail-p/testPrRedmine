@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -25,9 +26,14 @@ class TrackTimeController extends Controller
         $list = $this->connect()->time_entry->all(['project_id' => $prId]);
         if (isset($list['time_entries'])) {
             $trackTime = $list['time_entries'];
-        } else $trackTime = 0;
+            $remTrackTimeList = $this->remEntity($trackTime);
+        } else {
+            $trackTime = 0;
+            $remTrackTimeList = 0;
+        }
 
-        return $this->render('@App/listTrackTime.html.twig', ['trackTime' => $trackTime]);
+        return $this->render('@App/listTrackTime.html.twig', [
+            'trackTime' => $trackTime, 'remTrackTimeList' => $remTrackTimeList]);
     }
 
     /**
@@ -76,6 +82,7 @@ class TrackTimeController extends Controller
 
     /**
      * @Route("/rem_time_entries/{prId}/{teId}", name="rem_time_entry", requirements={"prId": "\d+"})
+     * @Method("DELETE")
      */
     public function removeAction($prId, $teId)
     {
@@ -89,5 +96,22 @@ class TrackTimeController extends Controller
         $user = $this->container->getParameter('app_redmine_user');
         $pass = $this->container->getParameter('app_redmine_pass');
         return $client = new Client(self::URL, $user, $pass);
+    }
+
+    private function remEntity($entity_list)
+    {
+        $deleteForms = [];
+        foreach ($entity_list as $entity) {
+            $deleteForms[$entity['id']] = $this->createFormBuilder()
+                ->setAction($this->generateUrl('rem_time_entry', array(
+                    'prId' => $entity['project']['id'], 'teId' => $entity['id'])))
+                ->setMethod('DELETE')
+                ->add('submit', SubmitType::class, [
+                    'label' => 'del ',
+                    'attr' => ['class' => 'btn btn-sm btn-light']
+                ])
+                ->getForm()->createView();
+        }
+        return $deleteForms;
     }
 }

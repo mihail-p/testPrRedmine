@@ -12,8 +12,8 @@
                     <div class="col-md-8 form-control">
                         <div class="card">
                             <div class="card-header">
-                            <span>{{ item.getUserName }}</span>
-                            <span>{{ item.getDate|date("m/d/Y") }}</span>
+                                <span>{{ item.getUserName }}</span>
+                                <span>{{ item.getDate|date("m/d/Y") }}</span>
                             </div>
                         </div>
                         <div class="card-body">
@@ -22,11 +22,13 @@
                         </div>
                         <a class="btn btn-sm btn-outline-success"
                            href="{{ path('edit_comment', {'id' : item.getId}) }}">edit</a>
-                        <a class="btn btn-sm btn-outline-dark" href="{{ path('remove_comment', {'id' : item.getId}) }}">del</a>
+                        <a id="del_form">{{ form_start(deleteForms[item.id],
+                                {attr : {onsubmit: 'return confirm("Are you sure?");' }}) }}
+                            {{ form_widget(deleteForms[item.id].submit) }}
+                            {{ form_end(deleteForms[item.id]) }}</a>
                     </div>
                     <div class="col-md-3"></div>
                 </div>
-                {# {{ dump(item) }} #}
             {% endfor %}
         {% endif %}
     </div>
