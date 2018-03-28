@@ -104,8 +104,8 @@ class TrackTimeController extends Controller
         $deleteForms = [];
         foreach ($entity_list as $entity) {
             $deleteForms[$entity['id']] = $this->createFormBuilder()
-                ->setAction($this->generateUrl('rem_time_entry', array(
-                    'prId' => $entity['project']['id'], 'teId' => $entity['id'])))
+                ->setAction($this->generateUrl('rem_time_entry', [
+                    'prId' => $entity['project']['id'], 'teId' => $entity['id']]))
                 ->setMethod('DELETE')
                 ->add('submit', SubmitType::class, [
                     'label' => 'del ',

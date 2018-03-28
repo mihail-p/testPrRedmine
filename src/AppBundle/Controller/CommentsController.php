@@ -145,7 +145,7 @@ class CommentsController extends Controller
         $deleteForms = [];
         foreach ($entity_list as $entity) {
             $deleteForms[$entity->getId()] = $this->createFormBuilder($entity)
-                ->setAction($this->generateUrl('remove_comment', array('id' => $entity->getId())))
+                ->setAction($this->generateUrl('remove_comment', ['id' => $entity->getId()]))
                 ->setMethod('DELETE')
                 ->add('submit', SubmitType::class, [
                     'label' => 'del ',

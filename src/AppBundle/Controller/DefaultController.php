@@ -17,8 +17,7 @@ class DefaultController extends Controller
     {
         $data = 'Main page';
 
-        return $this->render('@App/index.html.twig', array(
-            'data' => $data));
+        return $this->render('@App/index.html.twig', ['data' => $data]);
     }
 
     /**
@@ -29,8 +28,7 @@ class DefaultController extends Controller
     {
         $data = 'You have the FULL access to this page now! ';
 
-        return $this->render('@App/index.html.twig', array(
-            'data' => $data));
+        return $this->render('@App/index.html.twig', ['data' => $data]);
     }
 
     /**
