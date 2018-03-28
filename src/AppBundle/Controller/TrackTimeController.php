@@ -93,9 +93,10 @@ class TrackTimeController extends Controller
 
     private function connect()
     {
-        $user = $this->container->getParameter('app_redmine_user');
+        $url = $this->container->getParameter('app_redmine_url');
         $pass = $this->container->getParameter('app_redmine_pass');
-        return $client = new Client(self::URL, $user, $pass);
+        $user = $this->container->getParameter('app_redmine_user');
+        return $client = new Client($url, $user, $pass);
     }
 
     private function remEntity($entity_list)

@@ -10,8 +10,6 @@ use Redmine\Client;
 
 class DefaultController extends Controller
 {
-    const URL = 'https://redmine.ekreative.com';
-
     /**
      * @Route("/", name="homepage")
      */
@@ -61,8 +59,9 @@ class DefaultController extends Controller
      */
     private function connect()
     {
+        $url = $this->container->getParameter('app_redmine_url');
         $user = $this->container->getParameter('app_redmine_user');
         $pass = $this->container->getParameter('app_redmine_pass');
-        return $client = new Client(self::URL, $user, $pass);
+        return $client = new Client($url, $user, $pass);
     }
 }

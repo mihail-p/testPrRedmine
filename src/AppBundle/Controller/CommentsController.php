@@ -26,8 +26,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
  */
 class CommentsController extends Controller
 {
-    const URL = 'https://redmine.ekreative.com';
-
     /**
      * @Route("/{prId}/{prName}", name="comm_list", requirements={"prId": "\d+"})
      */
