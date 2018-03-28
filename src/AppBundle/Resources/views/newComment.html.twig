@@ -5,31 +5,31 @@
         <H3>--- New Comment ---</H3>
         <div class="row">
             <div class="col-md-1"></div>
-            <div class="col-md-8 form-control">
-                {% if user %}
-                <div>
-                    <header>
+            {% if user %}
+                <div class="col-md-8 form-control">
+                    <div>
+                        <header>
                             <span>{{ form_start(form) }}
                                 {{ form_errors(form) }}
                                 {{ form_errors(form.user_name) }}
                                 {{ form_widget(form.user_name) }}
                         </span>
-                        <span>
+                            <span>
                                 {{ form_errors(form.date) }}
-                            {{ form_widget(form.date) }}
+                                {{ form_widget(form.date) }}
                         </span>
-                    </header>
+                        </header>
+                    </div>
+                    <div>
+                        {{ form_errors(form.comment) }}
+                        {{ form_widget(form.comment) }}
+                        {{ form_errors(form.project) }}
+                        {{ form_widget(form.project) }}
+                        {{ form_row(form.add) }}
+                        {{ form_end(form) }}
+                    </div>
                 </div>
-                <div>
-                    {{ form_errors(form.comment) }}
-                    {{ form_widget(form.comment) }}
-                    {{ form_errors(form.project) }}
-                    {{ form_widget(form.project) }}
-                    {{ form_row(form.add) }}
-                    {{ form_end(form) }}
-                </div>
-            </div>
-            <div class="col-md-3"></div>
+                <div class="col-md-3"></div>
             {% endif %}
         </div>
     </div>
