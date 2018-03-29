@@ -5,9 +5,8 @@ parameters:
 
 services:
     app.redmine:
-        class:   AppBundle\Controller\DefaultController
-        arguments:   ['%app_redmine_user%']
-        arguments:   ['%app_redmine_pass%']
+        class:   AppBundle\Service\ConnectAPI
+        arguments:   ['%app_redmine_url%','%app_redmine_user%','%app_redmine_pass%']
     #service_name:
     #    class: AppBundle\Directory\ClassName
     #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
