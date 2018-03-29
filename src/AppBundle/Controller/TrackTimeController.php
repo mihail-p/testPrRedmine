@@ -16,14 +16,12 @@ use Redmine\Client;
 
 class TrackTimeController extends Controller
 {
-    const URL = 'https://redmine.ekreative.com';
-
     /**
      * @Route("/time_list/{prId}", name="time_list", requirements={"prId": "\d+"})
      */
     public function indexAction($prId)
     {
-        $list = $this->connect()->time_entry->all(['project_id' => $prId]);
+        $list = $this->get('app.redmine')->connect()->time_entry->all(['project_id' => $prId]);
         if (isset($list['time_entries'])) {
             $trackTime = $list['time_entries'];
             $remTrackTimeList = $this->remEntity($trackTime);
@@ -59,7 +57,7 @@ class TrackTimeController extends Controller
 
         $form->handleRequest($request);
         if ($form->isValid()) {
-            $this->connect()->time_entry->create([
+            $this->get('app.redmine')->connect()->time_entry->create([
                 'project_id' => $prId,
                 'spent_on' => $trackTime->getDate(),
                 'hours' => $trackTime->getHours(),
@@ -86,17 +84,9 @@ class TrackTimeController extends Controller
      */
     public function removeAction($prId, $teId)
     {
-        $this->connect()->time_entry->remove($teId);
+        $this->get('app.redmine')->connect()->time_entry->remove($teId);
 
         return $this->redirectToRoute('time_list', ['prId' => $prId]);
-    }
-
-    private function connect()
-    {
-        $url = $this->container->getParameter('app_redmine_url');
-        $pass = $this->container->getParameter('app_redmine_pass');
-        $user = $this->container->getParameter('app_redmine_user');
-        return $client = new Client($url, $user, $pass);
     }
 
     private function remEntity($entity_list)

@@ -126,7 +126,6 @@ class CommentsController extends Controller
     /**
      * @Route("/rem/{id}", name="remove_comment", requirements={"id": "\d+"})
      * @Method("DELETE")
-
      */
     public function remAction($id)
     {
