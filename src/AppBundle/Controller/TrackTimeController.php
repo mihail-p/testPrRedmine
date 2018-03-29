@@ -2,14 +2,11 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\TrackTimeType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\TrackTime;
 
@@ -40,19 +37,7 @@ class TrackTimeController extends Controller
     {
         $trackTime = new TrackTime();
         $trackTime->setDate(date("Y-m-d")); /* new \DateTime('today')); */
-
-        $form = $this->createFormBuilder($trackTime)
-            ->add('date', TextType::class)//DateType::class, ['input' => 'string'])
-            ->add('hours', IntegerType::class)
-            ->add('comment', TextType::class)
-            ->add('Activity', ChoiceType::class, ['choices' => [
-                '8' => 'Design',
-                '9' => 'Development',
-                '10' => 'Management',
-                '11' => 'Testing']])
-            ->add('overtime', CheckboxType::class, ['required' => false])
-            ->add('create', SubmitType::class)
-            ->getForm();
+        $form = $this->createForm(new TrackTimeType(), $trackTime);
 
         $form->handleRequest($request);
         if ($form->isValid()) {
