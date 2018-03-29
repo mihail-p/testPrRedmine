@@ -8,17 +8,14 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\CommentType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Comment;
 use AppBundle\Entity\Project;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 /**
  * Class CommentsController
@@ -63,18 +60,8 @@ class CommentsController extends Controller
         $comment->setDate(new \DateTime('today'));
         $comment->setUserName($user);
 
-        $form = $this->createFormBuilder($comment)
-            ->add('user_name', TextType::class, ['disabled' => true])
-            ->add('date', DateType::class, ['widget' => 'single_text', 'disabled' => true])
-            ->add('comment', TextareaType::class, ['attr' => ['cols' => '78', 'rows' => '5']])
-            ->add('project', EntityType::class, [
-                'class' => 'AppBundle\Entity\Project',
-                'property' => 'project_name',
-                'attr' => [
-                    'class' => 'chosen form-control', 'data-placeholder' => '-- choice Project --']
-            ])
-            ->add('add', SubmitType::class)
-            ->getForm();
+        $form = $this->createForm(new CommentType(), $comment)
+            ->add('add', SubmitType::class);
 
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -98,19 +85,8 @@ class CommentsController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('AppBundle:Comment')->find($id);
 
-        $form = $this->createFormBuilder($entity)
-            ->add('user_name', TextType::class, ['disabled' => true])
-            ->add('date', DateType::class, ['widget' => 'single_text', 'disabled' => true])
-            ->add('comment', TextareaType::class, ['attr' => ['cols' => '78', 'rows' => '5']])
-            ->add('project', EntityType::class, [
-                'class' => 'AppBundle\Entity\Project',
-                'property' => 'project_name',
-                'disabled' => true,
-                'attr' => [
-                    'class' => 'chosen form-control', 'data-placeholder' => '-- choice Project --']
-            ])
-            ->add('save', SubmitType::class)
-            ->getForm();
+        $form = $this->createForm(new CommentType(), $entity)
+            ->add('save', SubmitType::class);
 
         $form->handleRequest($request);
         if ($form->isValid()) {
