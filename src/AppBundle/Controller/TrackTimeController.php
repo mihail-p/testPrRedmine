@@ -12,7 +12,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\TrackTime;
-use Redmine\Client;
 
 class TrackTimeController extends Controller
 {
