@@ -1,1 +1,9 @@
-#del_form {display: inline-block;}
+#del_form {
+    display: inline-block;
+}
+
+section #comment_project {
+    pointer-events: none;
+    color: #959595;
+    background: #F5F5F5;
+}

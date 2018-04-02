@@ -23,8 +23,10 @@
                 <div>
                     {{ form_errors(form.comment) }}
                     {{ form_widget(form.comment) }}
-                    {{ form_errors(form.project) }}
-                    {{ form_widget(form.project) }}
+                    <section>
+                        {{ form_errors(form.project) }}
+                        {{ form_widget(form.project) }}
+                    </section>
                     {{ form_row(form.save) }}
                     {{ form_end(form) }}
                 </div>
@@ -32,6 +34,7 @@
             <div class="col-md-3"></div>
             {% endif %}
         </div>
+        {#  {{ dump(dataForm) }} #}
     </div>
     <a href="{{ path('listProjects') }}">Projects</a><br>
     <a href="{{ path('homepage') }}">Main</a>
